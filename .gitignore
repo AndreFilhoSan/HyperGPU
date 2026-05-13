@@ -1,0 +1,65 @@
+Easy-GPU-PV-main/
+tmp/
+.venv/
+
+## .NET / Visual Studio
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+artifacts/
+
+# Build logs
+[Ll]og/
+[Ll]ogs/
+*.log
+*.binlog
+
+# Test results and coverage
+[Tt]est[Rr]esult*/
+[Tt]est[Rr]esults*/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+coverage-report/
+*.cobertura.xml
+*.opencover.xml
+
+# Automated local validation outputs
+.hypergpu-test*/
+HyperGPU.TestOutput/
+PlaywrightReport/
+playwright-report/
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+project.lock.json
+
+# MSIX packaging output
+AppPackages/
+BundleArtifacts/
+*.msix
+*.msixupload
+*.appx
+*.appxbundle
+*.appxupload
+
+# Publish output
+publish/
+*.pubxml
+PublishScripts/
+
+# Tooling
+_ReSharper*/
+*.DotSettings.user
+*.dotCover
+.idea/

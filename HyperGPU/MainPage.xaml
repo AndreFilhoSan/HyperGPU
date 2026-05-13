@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="HyperGPU.MainPage"
+    x:Name="RootPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:converters="using:HyperGPU.Converters"
+    xmlns:local="using:HyperGPU"
+    xmlns:models="using:HyperGPU.Models"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Uid="MainPage"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:HostCheckStateBrushConverter x:Key="HostCheckStateBrushConverter" />
+        <converters:GpuDeviceBrushConverter x:Key="GpuDeviceBrushConverter" />
+        <converters:StepCompletionBrushConverter x:Key="StepCompletionBrushConverter" />
+        <converters:StepCompletionBackgroundConverter x:Key="StepCompletionBackgroundConverter" />
+        <converters:StepCompletionGlyphConverter x:Key="StepCompletionGlyphConverter" />
+        <converters:WorkflowStepAccentConverter x:Key="WorkflowStepAccentConverter" />
+        <converters:WorkflowStepFillConverter x:Key="WorkflowStepFillConverter" />
+        <converters:WorkflowStepIconBackgroundConverter x:Key="WorkflowStepIconBackgroundConverter" />
+        <converters:WorkflowStepStrokeConverter x:Key="WorkflowStepStrokeConverter" />
+        <converters:ValidationBrushConverter x:Key="ValidationBrushConverter" />
+        <converters:ValidationThicknessConverter x:Key="ValidationThicknessConverter" />
+    </Page.Resources>
+
+    <Grid Padding="24" Background="{StaticResource HyperGpuBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Margin="0,0,0,18" Padding="22" Background="{StaticResource HyperGpuHeroBrush}" BorderBrush="{StaticResource HyperGpuBorderBrush}" BorderThickness="1" CornerRadius="24">
+            <Grid ColumnSpacing="18">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Border Background="#2606B6D4" BorderBrush="{StaticResource HyperGpuBorderBrush}" BorderThickness="1" CornerRadius="20" Padding="10" VerticalAlignment="Top">
+                    <Image Height="64" Source="Assets/Square150x150Logo.scale-200.png" Width="64" />
+                </Border>
+
+                <StackPanel Grid.Column="1" Spacing="10" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <TextBlock x:Uid="MainPageHeading" FontSize="32" FontWeight="SemiBold" VerticalAlignment="Center" />
+                        <Border Background="#2616A34A" BorderBrush="#6622C55E" BorderThickness="1" CornerRadius="12" Padding="10,4" VerticalAlignment="Center">
+                            <TextBlock x:Uid="MainPagePreviewBadge" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource HyperGpuGreenBrush}" />
+                        </Border>
+                    </StackPanel>
+                    <TextBlock x:Uid="MainPageSubtitle" Foreground="{StaticResource HyperGpuCyanSoftBrush}" FontSize="16" FontWeight="SemiBold" TextWrapping="WrapWholeWords" />
+                    <TextBlock
+                        x:Name="StatusSummaryText"
+                        Foreground="{StaticResource HyperGpuMutedTextBrush}"
+                        Text="{x:Bind ViewModel.StatusSummary, Mode=OneWay}"
+                        TextWrapping="WrapWholeWords" />
+                    <TextBlock
+                        Foreground="#FFEF4444"
+                        FontWeight="SemiBold"
+                        Text="{x:Bind ViewModel.ValidationSummary, Mode=OneWay}"
+                        TextWrapping="WrapWholeWords" />
+                    <TextBlock
+                        x:Name="LastUpdatedTextBlock"
+                        Foreground="{StaticResource HyperGpuMutedTextBrush}"
+                        Text="{x:Bind ViewModel.LastUpdatedText, Mode=OneWay}"
+                        x:Load="{x:Bind ViewModel.HasSnapshot, Mode=OneWay}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Spacing="10" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Border Background="#1A06B6D4" BorderBrush="{StaticResource HyperGpuBorderBrush}" BorderThickness="1" CornerRadius="16" Padding="12,8">
+                        <StackPanel Spacing="2">
+                            <TextBlock x:Uid="MainPageIdentityLabel" FontSize="11" Foreground="{StaticResource HyperGpuMutedTextBrush}" />
+                            <TextBlock Text="WinUI • Hyper-V • GPU-PV" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource HyperGpuCyanSoftBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock x:Uid="ThemeSelectorLabel" FontSize="11" Foreground="{StaticResource HyperGpuMutedTextBrush}" />
+                        <ComboBox
+                            x:Name="ThemeComboBox"
+                            MinWidth="132"
+                            SelectionChanged="ThemeComboBox_OnSelectionChanged"
+                            ToolTipService.ToolTip="Switch between dark and light app themes.">
+                            <ComboBoxItem x:Uid="ThemeDarkItem" Tag="Dark" />
+                            <ComboBoxItem x:Uid="ThemeLightItem" Tag="Light" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <HyperlinkButton
+                        x:Uid="GithubPlaceholderLink"
+                        AutomationProperties.AutomationId="GithubPlaceholderLink"
+                        HorizontalAlignment="Right"
+                        NavigateUri="https://github.com/"
+                        ToolTipService.ToolTip="Open the future public project repository."
+                        VerticalAlignment="Top" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <TabView Grid.Row="1" x:Name="RootTabView" Background="Transparent" CanDragTabs="False" IsAddTabButtonVisible="False" TabWidthMode="SizeToContent">
+            <TabView.Resources>
+                <SolidColorBrush x:Key="TabViewItemHeaderBackground" Color="Transparent" />
+                <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="Transparent" />
+                <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver" Color="Transparent" />
+                <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPressed" Color="Transparent" />
+                <SolidColorBrush x:Key="TabViewItemHeaderBorderBrush" Color="Transparent" />
+                <SolidColorBrush x:Key="TabViewItemHeaderBorderBrushSelected" Color="Transparent" />
+            </TabView.Resources>
+            <TabViewItem x:Name="OverviewTabItem" IsClosable="False" ToolTipService.ToolTip="Step 1: inspect host readiness before configuring the VM.">
+                <TabViewItem.Header>
+                    <Grid Width="250" Height="76" Margin="0,0,-18,0">
+                        <Path Data="M0,0 L212,0 L250,38 L212,76 L0,76 Z" Fill="{Binding ViewModel.IsOverviewComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepFillConverter}}" Stretch="Fill" />
+                        <Path Data="M0,0 L212,0 L250,38 L212,76 L0,76 Z" Stroke="{Binding ViewModel.IsOverviewComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepStrokeConverter}}" StrokeThickness="1" Stretch="Fill" />
+                        <Grid Margin="22,12,42,12" ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Background="{Binding ViewModel.IsOverviewComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepIconBackgroundConverter}}" CornerRadius="18" Height="38" Width="38" VerticalAlignment="Center">
+                                <FontIcon FontSize="16" Foreground="{Binding ViewModel.IsOverviewComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepAccentConverter}}" Glyph="{Binding ViewModel.IsOverviewComplete, ElementName=RootPage, Converter={StaticResource StepCompletionGlyphConverter}}" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock x:Uid="OverviewTabPendingLabel" FontSize="15" FontWeight="SemiBold" Foreground="{Binding ViewModel.IsOverviewComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepAccentConverter}}" />
+                                <TextBlock FontSize="12" Foreground="#FFE5E7EB" Text="Host readiness" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </TabViewItem.Header>
+                <ScrollViewer>
+                    <StackPanel Padding="8" Spacing="24">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <Button
+                                x:Name="RefreshButton"
+                                x:Uid="RefreshButton"
+                                AutomationProperties.AutomationId="RefreshChecksButton"
+                                Command="{x:Bind ViewModel.RefreshCommand}"
+                                TabIndex="0"
+                                ToolTipService.ToolTip="Refresh host readiness checks, GPU detection, Hyper-V status, and virtual switches.">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="R" Modifiers="Control" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
+
+                            <ProgressRing
+                                x:Name="RefreshProgressRing"
+                                Height="32"
+                                IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
+                                Width="32"
+                                x:Load="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <Grid ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" CornerRadius="12" Padding="16">
+                                <Grid ColumnSpacing="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Background="#1A16A34A" CornerRadius="10" Padding="10">
+                                        <FontIcon Foreground="#FF22C55E" Glyph="&#xE73E;" />
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1" Spacing="4">
+                                        <TextBlock x:Uid="SummaryCardReadyLabel" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                        <TextBlock FontSize="28" FontWeight="SemiBold" Text="{x:Bind ViewModel.ReadyCount, Mode=OneWay}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Column="1" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" CornerRadius="12" Padding="16">
+                                <Grid ColumnSpacing="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Background="#1AF59E0B" CornerRadius="10" Padding="10">
+                                        <FontIcon Foreground="#FFF59E0B" Glyph="&#xE7BA;" />
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1" Spacing="4">
+                                        <TextBlock x:Uid="SummaryCardWarningLabel" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                        <TextBlock FontSize="28" FontWeight="SemiBold" Text="{x:Bind ViewModel.WarningCount, Mode=OneWay}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Column="2" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" CornerRadius="12" Padding="16">
+                                <Grid ColumnSpacing="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Background="#1ADC2626" CornerRadius="10" Padding="10">
+                                        <FontIcon Foreground="#FFEF4444" Glyph="&#xEA39;" />
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1" Spacing="4">
+                                        <TextBlock x:Uid="SummaryCardErrorLabel" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                        <TextBlock FontSize="28" FontWeight="SemiBold" Text="{x:Bind ViewModel.ErrorCount, Mode=OneWay}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" CornerRadius="12" Padding="16">
+                            <StackPanel Spacing="12">
+                                <StackPanel Spacing="4">
+                                    <TextBlock x:Uid="EnvironmentSectionTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                    <TextBlock x:Uid="EnvironmentSectionSubtitle" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="WrapWholeWords" />
+                                </StackPanel>
+
+                                <Grid ColumnSpacing="16" RowSpacing="8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock x:Uid="OperatingSystemLabel" Grid.Row="0" Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind ViewModel.OperatingSystemText, Mode=OneWay}" TextWrapping="WrapWholeWords" />
+
+                                    <TextBlock x:Uid="ArchitectureLabel" Grid.Row="1" Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.ArchitectureText, Mode=OneWay}" TextWrapping="WrapWholeWords" />
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" CornerRadius="12" Padding="16">
+                            <StackPanel Spacing="12">
+                                <StackPanel Spacing="4">
+                                    <TextBlock x:Uid="ChecksSectionTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                    <TextBlock x:Uid="ChecksSectionSubtitle" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="WrapWholeWords" />
+                                </StackPanel>
+
+                                <ListView
+                                    x:Name="ChecksListView"
+                                    AutomationProperties.AutomationId="ChecksListView"
+                                    IsTabStop="False"
+                                    ItemsSource="{x:Bind ViewModel.Checks, Mode=OneWay}"
+                                    SelectionMode="None">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:HostCheckResult">
+                                            <Border Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" CornerRadius="12" Margin="0,0,0,8" Padding="16">
+                                                <Grid ColumnSpacing="12">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <FontIcon Foreground="{Binding State, Converter={StaticResource HostCheckStateBrushConverter}}" Glyph="{Binding StatusGlyph}" VerticalAlignment="Top" />
+
+                                                    <StackPanel Grid.Column="1" Spacing="8">
+                                                        <TextBlock FontWeight="SemiBold" Foreground="{Binding State, Converter={StaticResource HostCheckStateBrushConverter}}" Text="{Binding Title}" TextWrapping="WrapWholeWords" />
+                                                        <TextBlock Foreground="{Binding State, Converter={StaticResource HostCheckStateBrushConverter}}" Text="{Binding StatusLabel}" TextWrapping="WrapWholeWords" />
+                                                        <TextBlock Text="{x:Bind Description}" TextWrapping="WrapWholeWords" />
+                                                        <TextBlock
+                                                            x:Name="ResolutionTextBlock"
+                                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                            Text="{x:Bind Resolution}"
+                                                            TextWrapping="WrapWholeWords"
+                                                            x:Load="{x:Bind HasResolution, Mode=OneWay}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+
+                            </StackPanel>
+                        </Border>
+
+                        <Border
+                            x:Name="GpuSectionPanel"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="12"
+                            Padding="16"
+                            x:Load="{x:Bind ViewModel.HasGpuDevices, Mode=OneWay}">
+                            <StackPanel Spacing="12">
+                                <StackPanel Spacing="4">
+                                    <TextBlock x:Uid="GpuSectionTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                    <TextBlock x:Uid="GpuSectionSubtitle" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="WrapWholeWords" />
+                                </StackPanel>
+
+                                <ListView
+                                    x:Name="GpuListView"
+                                    AutomationProperties.AutomationId="GpuListView"
+                                    IsTabStop="False"
+                                    ItemsSource="{x:Bind ViewModel.GpuDevices, Mode=OneWay}"
+                                    SelectionMode="None">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:GpuDeviceInfo">
+                                            <Border Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" CornerRadius="12" Margin="0,0,0,8" Padding="12">
+                                                <Grid ColumnSpacing="12">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Border Background="{Binding Converter={StaticResource GpuDeviceBrushConverter}}" CornerRadius="18" Height="36" Width="36">
+                                                        <TextBlock Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding VendorBadgeText}" VerticalAlignment="Center" />
+                                                    </Border>
+
+                                                    <StackPanel Grid.Column="1" Spacing="4">
+                                                        <TextBlock FontWeight="SemiBold" Text="{x:Bind Name}" TextWrapping="WrapWholeWords" />
+                                                        <TextBlock Foreground="{Binding Converter={StaticResource GpuDeviceBrushConverter}}" Text="{Binding VendorDisplayName}" TextWrapping="WrapWholeWords" />
+                                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind Description}" TextWrapping="WrapWholeWords" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+
+                                <Border Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" CornerRadius="12" Padding="16">
+                                    <StackPanel Spacing="8">
+                                        <TextBlock x:Uid="QuickFixPanelTitle" FontWeight="SemiBold" />
+                                        <TextBlock Text="{x:Bind ViewModel.PrimaryQuickActionTitle, Mode=OneWay}" TextWrapping="WrapWholeWords" />
+                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind ViewModel.PrimaryQuickActionDescription, Mode=OneWay}" TextWrapping="WrapWholeWords" />
+                                        <Button Command="{x:Bind ViewModel.ExecutePrimaryQuickActionCommand}" Content="{x:Bind ViewModel.PrimaryQuickActionLabel, Mode=OneWay}" HorizontalAlignment="Left" IsEnabled="{x:Bind ViewModel.HasPrimaryQuickAction, Mode=OneWay}" ToolTipService.ToolTip="Run the recommended quick fix for the highest-priority host readiness issue." />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+
+                        <Button
+                            x:Name="OverviewNextButton"
+                            x:Uid="OverviewNextButton"
+                            AutomationProperties.AutomationId="OverviewNextButton"
+                            Click="OverviewNextButton_OnClick"
+                            HorizontalAlignment="Left"
+                            ToolTipService.ToolTip="Continue to VM configuration when host readiness has no blocking issues."
+                            IsEnabled="{x:Bind ViewModel.CanContinueFromOverview, Mode=OneWay}" />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabViewItem>
+
+            <TabViewItem x:Name="ConfigurationTabItem" IsClosable="False" ToolTipService.ToolTip="Step 2: configure VM name, guest account, ISO, storage, CPU, memory, GPU, and networking.">
+                <TabViewItem.Header>
+                    <Grid Width="250" Height="76" Margin="0,0,-18,0">
+                        <Path Data="M0,0 L212,0 L250,38 L212,76 L0,76 L38,38 Z" Fill="{Binding ViewModel.IsConfigurationComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepFillConverter}}" Stretch="Fill" />
+                        <Path Data="M0,0 L212,0 L250,38 L212,76 L0,76 L38,38 Z" Stroke="{Binding ViewModel.IsConfigurationComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepStrokeConverter}}" StrokeThickness="1" Stretch="Fill" />
+                        <Grid Margin="50,12,42,12" ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Background="{Binding ViewModel.IsConfigurationComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepIconBackgroundConverter}}" CornerRadius="18" Height="38" Width="38" VerticalAlignment="Center">
+                                <FontIcon FontSize="16" Foreground="{Binding ViewModel.IsConfigurationComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepAccentConverter}}" Glyph="{Binding ViewModel.IsConfigurationComplete, ElementName=RootPage, Converter={StaticResource StepCompletionGlyphConverter}}" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock x:Uid="ConfigurationTabPendingLabel" FontSize="15" FontWeight="SemiBold" Foreground="{Binding ViewModel.IsConfigurationComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepAccentConverter}}" />
+                                <TextBlock FontSize="12" Foreground="#FFE5E7EB" Text="VM settings" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </TabViewItem.Header>
+                <ScrollViewer>
+                    <StackPanel Padding="8" Spacing="24">
+                        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" CornerRadius="12" Padding="16">
+                            <StackPanel Spacing="16">
+                                <StackPanel Spacing="4">
+                                    <TextBlock x:Uid="VmConfigSectionTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                    <TextBlock x:Uid="VmConfigSectionSubtitle" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="WrapWholeWords" />
+                                </StackPanel>
+
+                                <Grid ColumnSpacing="16" RowSpacing="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Row="0" Grid.Column="0" Spacing="6">
+                                        <TextBlock x:Uid="VmNameLabel" />
+                                        <TextBox
+                                            x:Name="VmNameTextBox"
+                                            AutomationProperties.AutomationId="VmNameTextBox"
+                                            ToolTipService.ToolTip="Name for the Hyper-V virtual machine. Use only letters and numbers, up to 15 characters."
+                                            BorderBrush="{Binding ViewModel.HasVmNameIssue, ElementName=RootPage, Converter={StaticResource ValidationBrushConverter}}"
+                                            BorderThickness="{Binding ViewModel.HasVmNameIssue, ElementName=RootPage, Converter={StaticResource ValidationThicknessConverter}}"
+                                            Text="{x:Bind ViewModel.VmName, Mode=TwoWay}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="0" Grid.Column="1" Spacing="6">
+                                        <TextBlock x:Uid="UsernameLabel" />
+                                        <TextBox
+                                            x:Name="UsernameTextBox"
+                                            AutomationProperties.AutomationId="UsernameTextBox"
+                                            ToolTipService.ToolTip="Guest Windows local account username. It must be alphanumeric and different from the VM name."
+                                            BorderBrush="{Binding ViewModel.HasUsernameIssue, ElementName=RootPage, Converter={StaticResource ValidationBrushConverter}}"
+                                            BorderThickness="{Binding ViewModel.HasUsernameIssue, ElementName=RootPage, Converter={StaticResource ValidationThicknessConverter}}"
+                                            Text="{x:Bind ViewModel.Username, Mode=TwoWay}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Spacing="6">
+                                        <TextBlock x:Uid="PasswordLabel" />
+                                        <PasswordBox
+                                            x:Name="PasswordTextBox"
+                                            AutomationProperties.AutomationId="PasswordTextBox"
+                                            PasswordRevealMode="Peek"
+                                            ToolTipService.ToolTip="Guest Windows password. Use the reveal button inside this field to temporarily show the password."
+                                            BorderBrush="{Binding ViewModel.HasPasswordIssue, ElementName=RootPage, Converter={StaticResource ValidationBrushConverter}}"
+                                            BorderThickness="{Binding ViewModel.HasPasswordIssue, ElementName=RootPage, Converter={StaticResource ValidationThicknessConverter}}"
+                                            PasswordChanged="PasswordTextBox_OnPasswordChanged" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Spacing="6">
+                                        <TextBlock x:Uid="IsoPathLabel" />
+                                        <Grid ColumnSpacing="12">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBox
+                                                x:Name="IsoPathTextBox"
+                                                Grid.Column="0"
+                                                AutomationProperties.AutomationId="IsoPathTextBox"
+                                                ToolTipService.ToolTip="Full path to an official Windows ISO used to create the VHDX."
+                                                BorderBrush="{Binding ViewModel.HasIsoPathIssue, ElementName=RootPage, Converter={StaticResource ValidationBrushConverter}}"
+                                                BorderThickness="{Binding ViewModel.HasIsoPathIssue, ElementName=RootPage, Converter={StaticResource ValidationThicknessConverter}}"
+                                                Text="{x:Bind ViewModel.SourcePath, Mode=TwoWay}" />
+
+                                            <Button
+                                                x:Name="BrowseIsoButton"
+                                                Grid.Column="1"
+                                                x:Uid="BrowseIsoButton"
+                                                AutomationProperties.AutomationId="BrowseIsoButton"
+                                                ToolTipService.ToolTip="Browse for a Windows ISO file."
+                                                Command="{x:Bind ViewModel.BrowseIsoCommand}" />
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Spacing="6">
+                                        <TextBlock x:Uid="VhdPathLabel" />
+                                        <Grid ColumnSpacing="12">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBox
+                                                x:Name="VhdPathTextBox"
+                                                Grid.Column="0"
+                                                AutomationProperties.AutomationId="VhdPathTextBox"
+                                                ToolTipService.ToolTip="Folder where the VM virtual disk file will be created."
+                                                BorderBrush="{Binding ViewModel.HasVhdPathIssue, ElementName=RootPage, Converter={StaticResource ValidationBrushConverter}}"
+                                                BorderThickness="{Binding ViewModel.HasVhdPathIssue, ElementName=RootPage, Converter={StaticResource ValidationThicknessConverter}}"
+                                                Text="{x:Bind ViewModel.VhdPath, Mode=TwoWay}" />
+
+                                            <Button
+                                                x:Name="BrowseVhdPathButton"
+                                                Grid.Column="1"
+                                                x:Uid="BrowseVhdPathButton"
+                                                AutomationProperties.AutomationId="BrowseVhdPathButton"
+                                                ToolTipService.ToolTip="Browse for the destination folder for the VM VHDX."
+                                                Command="{x:Bind ViewModel.BrowseVhdPathCommand}" />
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="4" Grid.Column="0" Spacing="6">
+                                        <TextBlock x:Uid="CpuCoresLabel" />
+                                        <TextBox
+                                            x:Name="CpuCoresTextBox"
+                                            AutomationProperties.AutomationId="CpuCoresTextBox"
+                                            ToolTipService.ToolTip="Number of virtual CPU cores assigned to the VM."
+                                            BorderBrush="{Binding ViewModel.HasCpuIssue, ElementName=RootPage, Converter={StaticResource ValidationBrushConverter}}"
+                                            BorderThickness="{Binding ViewModel.HasCpuIssue, ElementName=RootPage, Converter={StaticResource ValidationThicknessConverter}}"
+                                            Text="{x:Bind ViewModel.CpuCoresText, Mode=TwoWay}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="4" Grid.Column="1" Spacing="6">
+                                        <TextBlock x:Uid="MemoryGbLabel" />
+                                        <TextBox
+                                            x:Name="MemoryTextBox"
+                                            AutomationProperties.AutomationId="MemoryTextBox"
+                                            ToolTipService.ToolTip="Amount of startup memory assigned to the VM, in GB."
+                                            BorderBrush="{Binding ViewModel.HasMemoryIssue, ElementName=RootPage, Converter={StaticResource ValidationBrushConverter}}"
+                                            BorderThickness="{Binding ViewModel.HasMemoryIssue, ElementName=RootPage, Converter={StaticResource ValidationThicknessConverter}}"
+                                            Text="{x:Bind ViewModel.MemoryGbText, Mode=TwoWay}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="5" Grid.Column="0" Spacing="6">
+                                        <TextBlock x:Uid="DiskSizeLabel" />
+                                        <TextBox
+                                            x:Name="DiskSizeTextBox"
+                                            AutomationProperties.AutomationId="DiskSizeTextBox"
+                                            ToolTipService.ToolTip="Size of the virtual disk to create, in GB."
+                                            BorderBrush="{Binding ViewModel.HasDiskSizeIssue, ElementName=RootPage, Converter={StaticResource ValidationBrushConverter}}"
+                                            BorderThickness="{Binding ViewModel.HasDiskSizeIssue, ElementName=RootPage, Converter={StaticResource ValidationThicknessConverter}}"
+                                            Text="{x:Bind ViewModel.DiskSizeGbText, Mode=TwoWay}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="5" Grid.Column="1" Spacing="6">
+                                        <TextBlock x:Uid="GpuShareLabel" />
+                                        <TextBox
+                                            x:Name="GpuShareTextBox"
+                                            AutomationProperties.AutomationId="GpuShareTextBox"
+                                            ToolTipService.ToolTip="GPU partition resource allocation percentage for the VM."
+                                            BorderBrush="{Binding ViewModel.HasGpuShareIssue, ElementName=RootPage, Converter={StaticResource ValidationBrushConverter}}"
+                                            BorderThickness="{Binding ViewModel.HasGpuShareIssue, ElementName=RootPage, Converter={StaticResource ValidationThicknessConverter}}"
+                                            Text="{x:Bind ViewModel.GpuSharePercentageText, Mode=TwoWay}" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid ColumnSpacing="16" RowSpacing="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Spacing="6">
+                                        <TextBlock x:Uid="NetworkSwitchLabel" />
+                                        <ComboBox
+                                            x:Name="NetworkSwitchComboBox"
+                                            AutomationProperties.AutomationId="NetworkSwitchComboBox"
+                                            ItemsSource="{x:Bind ViewModel.NetworkSwitches, Mode=OneWay}"
+                                            ToolTipService.ToolTip="Hyper-V virtual switch used for VM networking."
+                                            BorderBrush="{Binding ViewModel.HasNetworkSwitchIssue, ElementName=RootPage, Converter={StaticResource ValidationBrushConverter}}"
+                                            BorderThickness="{Binding ViewModel.HasNetworkSwitchIssue, ElementName=RootPage, Converter={StaticResource ValidationThicknessConverter}}"
+                                            SelectedItem="{x:Bind ViewModel.SelectedNetworkSwitch, Mode=TwoWay}" />
+                                        <TextBlock
+                                            x:Uid="NetworkSwitchFallback"
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Spacing="6">
+                                        <TextBlock x:Uid="GpuSelectionLabel" />
+                                        <ComboBox
+                                            x:Name="GpuComboBox"
+                                            AutomationProperties.AutomationId="GpuComboBox"
+                                            ItemsSource="{x:Bind ViewModel.GpuSelectionOptions, Mode=OneWay}"
+                                            ToolTipService.ToolTip="GPU target for partitioning. Keep AUTO unless a specific GPU is required and supported."
+                                            BorderBrush="{Binding ViewModel.HasGpuIssue, ElementName=RootPage, Converter={StaticResource ValidationBrushConverter}}"
+                                            BorderThickness="{Binding ViewModel.HasGpuIssue, ElementName=RootPage, Converter={StaticResource ValidationThicknessConverter}}"
+                                            SelectedItem="{x:Bind ViewModel.SelectedGpuName, Mode=TwoWay}" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <CheckBox
+                                    x:Name="AutologonCheckBox"
+                                    x:Uid="AutologonCheckBox"
+                                    AutomationProperties.AutomationId="AutologonCheckBox"
+                                    ToolTipService.ToolTip="Enable automatic sign-in inside the guest VM after Windows setup."
+                                    IsChecked="{x:Bind ViewModel.IsAutoLogonEnabled, Mode=TwoWay}" />
+
+                                <Button
+                                    x:Name="BuildVmPlanButton"
+                                    x:Uid="BuildVmPlanButton"
+                                    AutomationProperties.AutomationId="BuildVmPlanButton"
+                                    ToolTipService.ToolTip="Validate the configuration and build the execution plan before provisioning."
+                                    Click="BuildVmPlanButton_OnClick" />
+                                <TextBlock
+                                    Foreground="#FFEF4444"
+                                    FontWeight="SemiBold"
+                                    Text="{x:Bind ViewModel.ValidationSummary, Mode=OneWay}"
+                                    TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" CornerRadius="12" Padding="16">
+                            <StackPanel Spacing="8">
+                                <TextBlock x:Uid="DownloadsHintTitle" FontWeight="SemiBold" />
+                                <TextBlock x:Uid="DownloadsHintDescription" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabViewItem>
+
+            <TabViewItem x:Name="ExecutionTabItem" IsClosable="False" ToolTipService.ToolTip="Step 3: review the plan, run provisioning, and follow live execution output.">
+                <TabViewItem.Header>
+                    <Grid Width="250" Height="76" Margin="0,0,-18,0">
+                        <Path Data="M0,0 L212,0 L250,38 L212,76 L0,76 L38,38 Z" Fill="{Binding ViewModel.IsExecutionComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepFillConverter}}" Stretch="Fill" />
+                        <Path Data="M0,0 L212,0 L250,38 L212,76 L0,76 L38,38 Z" Stroke="{Binding ViewModel.IsExecutionComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepStrokeConverter}}" StrokeThickness="1" Stretch="Fill" />
+                        <Grid Margin="50,12,42,12" ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Background="{Binding ViewModel.IsExecutionComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepIconBackgroundConverter}}" CornerRadius="18" Height="38" Width="38" VerticalAlignment="Center">
+                                <FontIcon FontSize="16" Foreground="{Binding ViewModel.IsExecutionComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepAccentConverter}}" Glyph="{Binding ViewModel.IsExecutionComplete, ElementName=RootPage, Converter={StaticResource StepCompletionGlyphConverter}}" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock x:Uid="ExecutionTabPendingLabel" FontSize="15" FontWeight="SemiBold" Foreground="{Binding ViewModel.IsExecutionComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepAccentConverter}}" />
+                                <TextBlock FontSize="12" Foreground="#FFE5E7EB" Text="Provisioning" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </TabViewItem.Header>
+                <ScrollViewer>
+                    <StackPanel Padding="8" Spacing="24">
+                        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" CornerRadius="12" Padding="16">
+                            <StackPanel Spacing="16">
+                                <StackPanel Spacing="4">
+                                    <TextBlock x:Uid="VmPlanSectionTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                    <TextBlock Text="{x:Bind ViewModel.VmPlanSummary, Mode=OneWay}" TextWrapping="WrapWholeWords" />
+                                </StackPanel>
+
+                                <StackPanel Spacing="8">
+                                    <TextBlock x:Uid="VmPlanIssuesLabel" FontWeight="SemiBold" />
+                                    <TextBox
+                                        x:Name="VmPlanIssuesTextBox"
+                                        AcceptsReturn="True"
+                                        AutomationProperties.AutomationId="VmPlanIssuesTextBox"
+                                        IsReadOnly="True"
+                                        MinHeight="100"
+                                        ToolTipService.ToolTip="Validation issues, warnings, and informational notes for the generated plan."
+                                        Text="{x:Bind ViewModel.VmPlanIssuesText, Mode=OneWay}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel Spacing="8">
+                                    <TextBlock x:Uid="CreateVmPreviewLabel" FontWeight="SemiBold" />
+                                    <TextBox
+                                        x:Name="CreateVmPreviewTextBox"
+                                        AcceptsReturn="True"
+                                        AutomationProperties.AutomationId="CreateVmPreviewTextBox"
+                                        IsReadOnly="True"
+                                        MinHeight="220"
+                                        ToolTipService.ToolTip="Preview of the PowerShell parameters that will be applied to create the VM."
+                                        Text="{x:Bind ViewModel.CreateVmParametersPreview, Mode=OneWay}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel Spacing="8">
+                                    <TextBlock x:Uid="DriverUpdatePreviewLabel" FontWeight="SemiBold" />
+                                    <TextBox
+                                        x:Name="DriverUpdatePreviewTextBox"
+                                        AcceptsReturn="True"
+                                        AutomationProperties.AutomationId="DriverUpdatePreviewTextBox"
+                                        IsReadOnly="True"
+                                        MinHeight="72"
+                                        ToolTipService.ToolTip="Preview of the command used to refresh GPU partition driver files in the guest VM."
+                                        Text="{x:Bind ViewModel.DriverUpdateCommandPreview, Mode=OneWay}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <Button
+                                        x:Name="ExecuteVmPlanButton"
+                                        x:Uid="ExecuteVmPlanButton"
+                                        AutomationProperties.AutomationId="ExecuteVmPlanButton"
+                                        ToolTipService.ToolTip="Run the validated provisioning plan and stream progress into the app."
+                                        Command="{x:Bind ViewModel.ExecuteVmPlanCommand}" />
+
+                                    <Button
+                                        x:Name="UpdateExistingVmButton"
+                                        x:Uid="UpdateExistingVmButton"
+                                        AutomationProperties.AutomationId="UpdateExistingVmButton"
+                                        ToolTipService.ToolTip="Refresh GPU partition driver files for an existing VM without recreating it."
+                                        Command="{x:Bind ViewModel.UpdateExistingVmCommand}" />
+
+                                    <ProgressRing
+                                        x:Name="ExecuteVmPlanProgressRing"
+                                        Height="32"
+                                        IsActive="{x:Bind ViewModel.IsExecutingPlan, Mode=OneWay}"
+                                        ToolTipService.ToolTip="Provisioning is running. Progress appears in the execution stages and log."
+                                        Width="32"
+                                        x:Load="{x:Bind ViewModel.IsExecutingPlan, Mode=OneWay}" />
+                                </StackPanel>
+
+                                <TextBlock Text="{x:Bind ViewModel.ExecutionStatus, Mode=OneWay}" TextWrapping="WrapWholeWords" />
+
+                                <Border Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" CornerRadius="12" Padding="14">
+                                    <StackPanel Spacing="8">
+                                        <TextBlock x:Uid="PostProvisioningGuideTitle" FontWeight="SemiBold" />
+                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind ViewModel.PostProvisioningGuideText, Mode=OneWay}" TextWrapping="WrapWholeWords" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Button
+                                    x:Name="ExecutionNextButton"
+                                    x:Uid="ExecutionNextButton"
+                                    AutomationProperties.AutomationId="ExecutionNextButton"
+                                    Click="ExecutionNextButton_OnClick"
+                                    HorizontalAlignment="Left"
+                                    ToolTipService.ToolTip="Continue to official download links after provisioning succeeds."
+                                    IsEnabled="{x:Bind ViewModel.CanContinueFromExecution, Mode=OneWay}" />
+
+                                <StackPanel Spacing="8">
+                                    <TextBlock x:Uid="VmExecutionStagesLabel" FontWeight="SemiBold" />
+                                    <TextBox
+                                        x:Name="VmExecutionStagesTextBox"
+                                        AcceptsReturn="True"
+                                        AutomationProperties.AutomationId="VmExecutionStagesTextBox"
+                                        IsReadOnly="True"
+                                        MinHeight="120"
+                                        ToolTipService.ToolTip="Current high-level provisioning stages and their latest status."
+                                        Text="{x:Bind ViewModel.ExecutionStagesText, Mode=OneWay}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel x:Name="ExecutionLogPanel" Spacing="8">
+                                    <TextBlock x:Uid="VmExecutionLogLabel" FontWeight="SemiBold" />
+                                    <TextBox
+                                        x:Name="VmExecutionLogTextBox"
+                                        AcceptsReturn="True"
+                                        AutomationProperties.AutomationId="VmExecutionLogTextBox"
+                                        IsReadOnly="True"
+                                        MinHeight="220"
+                                        ToolTipService.ToolTip="Live PowerShell output captured from the provisioning process."
+                                        Text="{x:Bind ViewModel.ExecutionLog, Mode=OneWay}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabViewItem>
+
+            <TabViewItem x:Name="DownloadsTabItem" IsClosable="False" ToolTipService.ToolTip="Official Microsoft download shortcuts for Windows ISO files.">
+                <TabViewItem.Header>
+                    <Grid Width="250" Height="76">
+                        <Path Data="M0,0 L212,0 L250,38 L212,76 L0,76 L38,38 Z" Fill="{Binding ViewModel.IsExecutionComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepFillConverter}}" Stretch="Fill" />
+                        <Path Data="M0,0 L212,0 L250,38 L212,76 L0,76 L38,38 Z" Stroke="{Binding ViewModel.IsExecutionComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepStrokeConverter}}" StrokeThickness="1" Stretch="Fill" />
+                        <Grid Margin="50,12,28,12" ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Background="{Binding ViewModel.IsExecutionComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepIconBackgroundConverter}}" CornerRadius="18" Height="38" Width="38" VerticalAlignment="Center">
+                                <FontIcon FontSize="16" Foreground="{Binding ViewModel.IsExecutionComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepAccentConverter}}" Glyph="&#xE896;" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock x:Uid="DownloadsTabPendingLabel" FontSize="15" FontWeight="SemiBold" Foreground="{Binding ViewModel.IsExecutionComplete, ElementName=RootPage, Converter={StaticResource WorkflowStepAccentConverter}}" />
+                                <TextBlock FontSize="12" Foreground="#FFE5E7EB" Text="Official ISOs" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </TabViewItem.Header>
+                <ScrollViewer>
+                    <StackPanel Padding="8" Spacing="24">
+                        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" CornerRadius="12" Padding="16">
+                            <StackPanel Spacing="12">
+                                <StackPanel Spacing="4">
+                                    <TextBlock x:Uid="DownloadsSectionTitle" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                                    <TextBlock x:Uid="DownloadsSectionSubtitle" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="WrapWholeWords" />
+                                </StackPanel>
+
+                                <HyperlinkButton
+                                    x:Uid="Win11IsoLink"
+                                    AutomationProperties.AutomationId="Win11IsoLink"
+                                    ToolTipService.ToolTip="Open Microsoft's official Windows 11 ISO download page."
+                                    NavigateUri="https://www.microsoft.com/software-download/windows11" />
+
+                                <HyperlinkButton
+                                    x:Uid="Win10IsoLink"
+                                    AutomationProperties.AutomationId="Win10IsoLink"
+                                    ToolTipService.ToolTip="Open Microsoft's official Windows 10 ISO download page."
+                                    NavigateUri="https://www.microsoft.com/software-download/windows10ISO" />
+
+                                <HyperlinkButton
+                                    x:Uid="Win11ArmIsoLink"
+                                    AutomationProperties.AutomationId="Win11ArmIsoLink"
+                                    ToolTipService.ToolTip="Open Microsoft's official Windows 11 ARM64 ISO download page."
+                                    NavigateUri="https://www.microsoft.com/software-download/windows11arm64" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" CornerRadius="12" Padding="16">
+                            <StackPanel Spacing="8">
+                                <TextBlock x:Uid="DownloadsTipTitle" FontWeight="SemiBold" />
+                                <TextBlock x:Uid="DownloadsTipBody" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabViewItem>
+        </TabView>
+    </Grid>
+</Page>

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "HyperGPU (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "HyperGPU (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

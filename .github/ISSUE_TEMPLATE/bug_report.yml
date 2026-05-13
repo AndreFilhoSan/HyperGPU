@@ -1,0 +1,63 @@
+name: Bug report
+description: Report a reproducible HyperGPU problem
+title: "Bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Remove passwords, tokens, VM credentials, and private paths from logs before submitting.
+  - type: input
+    id: version
+    attributes:
+      label: HyperGPU version or commit
+      placeholder: v0.1.0-alpha or commit SHA
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Windows version, GPU model, GPU driver version, Hyper-V state, and whether the app was run as administrator.
+      placeholder: Windows 11 24H2, NVIDIA/AMD/Intel GPU, driver version, Hyper-V enabled, admin yes/no
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: List exact steps from launch to failure.
+      placeholder: |
+        1. Open HyperGPU as administrator
+        2. Refresh checks
+        3. Build plan
+        4. Run provisioning
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste only relevant logs with secrets removed.
+      render: text
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I removed passwords, tokens, and private information from logs.
+          required: true
+        - label: I searched existing issues before opening this report.
+          required: true

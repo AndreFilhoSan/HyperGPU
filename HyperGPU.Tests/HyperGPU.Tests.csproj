@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.6.4" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.6.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\HyperGPU\Models\GpuDeviceInfo.cs" Link="Models\GpuDeviceInfo.cs" />
+    <Compile Include="..\HyperGPU\Models\HostCheckResult.cs" Link="Models\HostCheckResult.cs" />
+    <Compile Include="..\HyperGPU\Models\HostCheckState.cs" Link="Models\HostCheckState.cs" />
+    <Compile Include="..\HyperGPU\Models\HostInspectionSnapshot.cs" Link="Models\HostInspectionSnapshot.cs" />
+    <Compile Include="..\HyperGPU\Models\HostProbeData.cs" Link="Models\HostProbeData.cs" />
+    <Compile Include="..\HyperGPU\Models\VmConfigurationDraft.cs" Link="Models\VmConfigurationDraft.cs" />
+    <Compile Include="..\HyperGPU\Models\VmExecutionResult.cs" Link="Models\VmExecutionResult.cs" />
+    <Compile Include="..\HyperGPU\Models\VmExecutionPlan.cs" Link="Models\VmExecutionPlan.cs" />
+    <Compile Include="..\HyperGPU\Models\VmExecutionStageResult.cs" Link="Models\VmExecutionStageResult.cs" />
+    <Compile Include="..\HyperGPU\Models\VmExecutionStageState.cs" Link="Models\VmExecutionStageState.cs" />
+    <Compile Include="..\HyperGPU\Models\VmPlanIssue.cs" Link="Models\VmPlanIssue.cs" />
+    <Compile Include="..\HyperGPU\Models\VmPlanIssueSeverity.cs" Link="Models\VmPlanIssueSeverity.cs" />
+    <Compile Include="..\HyperGPU\Services\IAppResourceService.cs" Link="Services\IAppResourceService.cs" />
+    <Compile Include="..\HyperGPU\Services\IAppStateService.cs" Link="Services\IAppStateService.cs" />
+    <Compile Include="..\HyperGPU\Services\IFilePickerService.cs" Link="Services\IFilePickerService.cs" />
+    <Compile Include="..\HyperGPU\Services\IHostInspectionService.cs" Link="Services\IHostInspectionService.cs" />
+    <Compile Include="..\HyperGPU\Services\IHostQuickActionService.cs" Link="Services\IHostQuickActionService.cs" />
+    <Compile Include="..\HyperGPU\Services\IPowerShellService.cs" Link="Services\IPowerShellService.cs" />
+    <Compile Include="..\HyperGPU\Services\IVmProvisioningService.cs" Link="Services\IVmProvisioningService.cs" />
+    <Compile Include="..\HyperGPU\Services\HostInspectionService.cs" Link="Services\HostInspectionService.cs" />
+    <Compile Include="..\HyperGPU\Services\HostReadinessEvaluator.cs" Link="Services\HostReadinessEvaluator.cs" />
+    <Compile Include="..\HyperGPU\Services\VmExecutionPlanBuilder.cs" Link="Services\VmExecutionPlanBuilder.cs" />
+    <Compile Include="..\HyperGPU\Services\VmProvisioningService.cs" Link="Services\VmProvisioningService.cs" />
+    <Compile Include="..\HyperGPU\ViewModels\MainViewModel.cs" Link="ViewModels\MainViewModel.cs" />
+  </ItemGroup>
+
+</Project>

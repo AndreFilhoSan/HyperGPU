@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>HyperGPU</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Guided Hyper-V GPU Partitioning for Windows</value>
+  </data>
+  <data name="MainPageHeading.Text" xml:space="preserve">
+    <value>HyperGPU</value>
+  </data>
+  <data name="MainPagePreviewBadge.Text" xml:space="preserve">
+    <value>OSS PREVIEW</value>
+  </data>
+  <data name="MainPageIdentityLabel.Text" xml:space="preserve">
+    <value>Project identity</value>
+  </data>
+  <data name="ThemeSelectorLabel.Text" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="ThemeDarkItem.Content" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="ThemeLightItem.Content" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="GithubPlaceholderLink.Content" xml:space="preserve">
+    <value>Repository soon</value>
+  </data>
+  <data name="GithubPlaceholderLink.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Open future project repository link</value>
+  </data>
+  <data name="MainPageSubtitle.Text" xml:space="preserve">
+    <value>A guided WinUI control center for Hyper-V GPU Partitioning, VM readiness, provisioning, and guest driver maintenance.</value>
+  </data>
+  <data name="OverviewTabCompleteLabel.Text" xml:space="preserve">
+    <value>1. Overview</value>
+  </data>
+  <data name="OverviewTabPendingLabel.Text" xml:space="preserve">
+    <value>1. Overview</value>
+  </data>
+  <data name="ConfigurationTabCompleteLabel.Text" xml:space="preserve">
+    <value>2. Configuration</value>
+  </data>
+  <data name="ConfigurationTabPendingLabel.Text" xml:space="preserve">
+    <value>2. Configuration</value>
+  </data>
+  <data name="ExecutionTabCompleteLabel.Text" xml:space="preserve">
+    <value>3. Execution</value>
+  </data>
+  <data name="ExecutionTabPendingLabel.Text" xml:space="preserve">
+    <value>3. Execution</value>
+  </data>
+  <data name="DownloadsTabPendingLabel.Text" xml:space="preserve">
+    <value>4. Downloads</value>
+  </data>
+  <data name="OverviewNextButton.Content" xml:space="preserve">
+    <value>Continue to configuration</value>
+  </data>
+  <data name="OverviewNextButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Continue to configuration</value>
+  </data>
+  <data name="ExecutionNextButton.Content" xml:space="preserve">
+    <value>Open downloads</value>
+  </data>
+  <data name="ExecutionNextButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Open downloads tab</value>
+  </data>
+  <data name="RefreshButton.Content" xml:space="preserve">
+    <value>Refresh checks</value>
+  </data>
+  <data name="RefreshButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Refresh host checks</value>
+  </data>
+  <data name="RefreshButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.AcceleratorKey" xml:space="preserve">
+    <value>Ctrl+R</value>
+  </data>
+  <data name="SummaryCardReadyLabel.Text" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="SummaryCardWarningLabel.Text" xml:space="preserve">
+    <value>Warnings</value>
+  </data>
+  <data name="SummaryCardErrorLabel.Text" xml:space="preserve">
+    <value>Blocking issues</value>
+  </data>
+  <data name="EnvironmentSectionTitle.Text" xml:space="preserve">
+    <value>Host environment</value>
+  </data>
+  <data name="EnvironmentSectionSubtitle.Text" xml:space="preserve">
+    <value>Runtime details collected from Windows and PowerShell.</value>
+  </data>
+  <data name="OperatingSystemLabel.Text" xml:space="preserve">
+    <value>Operating system</value>
+  </data>
+  <data name="ArchitectureLabel.Text" xml:space="preserve">
+    <value>Architecture</value>
+  </data>
+  <data name="ChecksSectionTitle.Text" xml:space="preserve">
+    <value>System checks</value>
+  </data>
+  <data name="ChecksSectionSubtitle.Text" xml:space="preserve">
+    <value>Each item shows whether the host is ready for the next GPU-PV step.</value>
+  </data>
+  <data name="QuickFixPanelTitle.Text" xml:space="preserve">
+    <value>Recommended quick fix</value>
+  </data>
+  <data name="QuickFixUnavailableTitle" xml:space="preserve">
+    <value>No quick fix needed right now</value>
+  </data>
+  <data name="QuickFixUnavailableDescription" xml:space="preserve">
+    <value>Refresh the inspection after making changes on the host. HyperGPU will surface the next recommended one-click action here.</value>
+  </data>
+  <data name="QuickFixUnavailableAction" xml:space="preserve">
+    <value>No action available</value>
+  </data>
+  <data name="GpuSectionTitle.Text" xml:space="preserve">
+    <value>Detected GPUs</value>
+  </data>
+  <data name="GpuSectionSubtitle.Text" xml:space="preserve">
+    <value>These adapters were returned by Win32_VideoController and may be candidates for later GPU-PV steps.</value>
+  </data>
+  <data name="CheckStateReady" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="CheckStateWarning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="CheckStateError" xml:space="preserve">
+    <value>Blocking issue</value>
+  </data>
+  <data name="SummaryNotRun" xml:space="preserve">
+    <value>Run the inspection to see current host readiness.</value>
+  </data>
+  <data name="SummaryAllClear" xml:space="preserve">
+    <value>Host inspection complete. No blocking issues were found.</value>
+  </data>
+  <data name="SummaryWithIssues" xml:space="preserve">
+    <value>Host inspection complete. {0} ready, {1} warning, {2} blocking.</value>
+  </data>
+  <data name="LastUpdatedFormat" xml:space="preserve">
+    <value>Last updated: {0}</value>
+  </data>
+  <data name="InspectionFailedTitle" xml:space="preserve">
+    <value>Host inspection failed</value>
+  </data>
+  <data name="InspectionFailedDescription" xml:space="preserve">
+    <value>HyperGPU could not complete the current host inspection.</value>
+  </data>
+  <data name="InspectionFailedResolution" xml:space="preserve">
+    <value>Check PowerShell availability and try refreshing again.</value>
+  </data>
+  <data name="QuickFixRetryInspection" xml:space="preserve">
+    <value>Retry inspection</value>
+  </data>
+  <data name="QuickFixWindowsUpdate" xml:space="preserve">
+    <value>Open Windows Update</value>
+  </data>
+  <data name="QuickFixRunAsAdmin" xml:space="preserve">
+    <value>Relaunch as administrator</value>
+  </data>
+  <data name="QuickFixEnableHyperV" xml:space="preserve">
+    <value>Enable Hyper-V</value>
+  </data>
+  <data name="QuickFixRestartSettings" xml:space="preserve">
+    <value>Open restart settings</value>
+  </data>
+  <data name="QuickFixOpenDeviceManager" xml:space="preserve">
+    <value>Open Device Manager</value>
+  </data>
+  <data name="OsSupportedTitle" xml:space="preserve">
+    <value>Supported Windows build</value>
+  </data>
+  <data name="OsSupportedDescription" xml:space="preserve">
+    <value>Windows 10 20H1 or newer is required for the first GPU-PV workflows.</value>
+  </data>
+  <data name="OsSupportedResolution" xml:space="preserve">
+    <value>Update Windows to at least version 2004 before continuing.</value>
+  </data>
+  <data name="Os64BitTitle" xml:space="preserve">
+    <value>64-bit operating system</value>
+  </data>
+  <data name="Os64BitDescription" xml:space="preserve">
+    <value>GPU-PV automation expects a 64-bit Windows installation.</value>
+  </data>
+  <data name="Os64BitResolution" xml:space="preserve">
+    <value>Use a 64-bit edition of Windows on the host.</value>
+  </data>
+  <data name="AdminTitle" xml:space="preserve">
+    <value>Elevated session</value>
+  </data>
+  <data name="AdminDescription" xml:space="preserve">
+    <value>Administrative rights are required to inspect and later configure Hyper-V resources.</value>
+  </data>
+  <data name="AdminResolution" xml:space="preserve">
+    <value>Launch HyperGPU as administrator before creating or modifying VMs.</value>
+  </data>
+  <data name="HyperVFeatureTitle" xml:space="preserve">
+    <value>Hyper-V feature enabled</value>
+  </data>
+  <data name="HyperVFeatureDescription" xml:space="preserve">
+    <value>Microsoft-Hyper-V-All should be enabled on the host.</value>
+  </data>
+  <data name="HyperVFeatureResolution" xml:space="preserve">
+    <value>Enable Hyper-V in Windows Features and reboot the host.</value>
+  </data>
+  <data name="HypervisorTitle" xml:space="preserve">
+    <value>Hypervisor active</value>
+  </data>
+  <data name="HypervisorDescription" xml:space="preserve">
+    <value>The Hyper-V hypervisor should be active after feature enablement.</value>
+  </data>
+  <data name="HypervisorResolution" xml:space="preserve">
+    <value>Reboot the host after enabling Hyper-V, then refresh the inspection.</value>
+  </data>
+  <data name="VmmsTitle" xml:space="preserve">
+    <value>Hyper-V management service</value>
+  </data>
+  <data name="VmmsDescription" xml:space="preserve">
+    <value>The Hyper-V Virtual Machine Management service must be running before VHDX and VM operations can start.</value>
+  </data>
+  <data name="VmmsResolution" xml:space="preserve">
+    <value>Start the Hyper-V Virtual Machine Management service, then refresh host checks.</value>
+  </data>
+  <data name="QuickFixStartVmms" xml:space="preserve">
+    <value>Start Hyper-V service</value>
+  </data>
+  <data name="GpuDetectedTitle" xml:space="preserve">
+    <value>GPU adapters detected</value>
+  </data>
+  <data name="GpuDetectedDescription" xml:space="preserve">
+    <value>At least one display adapter should be visible for future partition and driver workflows.</value>
+  </data>
+  <data name="GpuDetectedResolution" xml:space="preserve">
+    <value>Install or repair the host GPU driver, then refresh the inspection.</value>
+  </data>
+  <data name="GpuSummaryFormat" xml:space="preserve">
+    <value>Vendor: {0}  Driver: {1}</value>
+  </data>
+  <data name="UnknownValue" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="VmConfigSectionTitle.Text" xml:space="preserve">
+    <value>VM configuration</value>
+  </data>
+  <data name="VmConfigSectionSubtitle.Text" xml:space="preserve">
+    <value>Fill the same core inputs used by the original automation, then generate a safe execution plan.</value>
+  </data>
+  <data name="VmNameLabel.Text" xml:space="preserve">
+    <value>VM name</value>
+  </data>
+  <data name="UsernameLabel.Text" xml:space="preserve">
+    <value>Guest username</value>
+  </data>
+  <data name="PasswordLabel.Text" xml:space="preserve">
+    <value>Guest password</value>
+  </data>
+  <data name="IsoPathLabel.Text" xml:space="preserve">
+    <value>Windows ISO path</value>
+  </data>
+  <data name="VhdPathLabel.Text" xml:space="preserve">
+    <value>VHD folder path</value>
+  </data>
+  <data name="BrowseIsoButton.Content" xml:space="preserve">
+    <value>Browse…</value>
+  </data>
+  <data name="BrowseIsoButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Browse for Windows ISO</value>
+  </data>
+  <data name="BrowseVhdPathButton.Content" xml:space="preserve">
+    <value>Browse…</value>
+  </data>
+  <data name="BrowseVhdPathButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Browse for VHD folder path</value>
+  </data>
+  <data name="CpuCoresLabel.Text" xml:space="preserve">
+    <value>CPU cores</value>
+  </data>
+  <data name="MemoryGbLabel.Text" xml:space="preserve">
+    <value>Memory (GB)</value>
+  </data>
+  <data name="DiskSizeLabel.Text" xml:space="preserve">
+    <value>Disk size (GB)</value>
+  </data>
+  <data name="GpuShareLabel.Text" xml:space="preserve">
+    <value>GPU allocation (%)</value>
+  </data>
+  <data name="NetworkSwitchLabel.Text" xml:space="preserve">
+    <value>Network switch</value>
+  </data>
+  <data name="NetworkSwitchFallback.Text" xml:space="preserve">
+    <value>No Hyper-V switches were discovered yet. Refresh host checks or type one later in PowerShell execution.</value>
+  </data>
+  <data name="GpuSelectionLabel.Text" xml:space="preserve">
+    <value>GPU selection</value>
+  </data>
+  <data name="AutologonCheckBox.Content" xml:space="preserve">
+    <value>Enable guest autologon</value>
+  </data>
+  <data name="AutologonCheckBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Enable guest autologon</value>
+  </data>
+  <data name="BuildVmPlanButton.Content" xml:space="preserve">
+    <value>Build execution plan</value>
+  </data>
+  <data name="BuildVmPlanButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Build VM execution plan</value>
+  </data>
+  <data name="DownloadsHintTitle.Text" xml:space="preserve">
+    <value>Need an installation image?</value>
+  </data>
+  <data name="DownloadsHintDescription.Text" xml:space="preserve">
+    <value>Use the Downloads tab for the official Microsoft Windows 11, Windows 10, and Windows 11 Arm64 ISO pages.</value>
+  </data>
+  <data name="VmPlanSectionTitle.Text" xml:space="preserve">
+    <value>Execution plan</value>
+  </data>
+  <data name="VmPlanIssuesLabel.Text" xml:space="preserve">
+    <value>Validation results</value>
+  </data>
+  <data name="CreateVmPreviewLabel.Text" xml:space="preserve">
+    <value>CopyFilesToVM parameter block</value>
+  </data>
+  <data name="DriverUpdatePreviewLabel.Text" xml:space="preserve">
+    <value>Driver update command</value>
+  </data>
+  <data name="DownloadsSectionTitle.Text" xml:space="preserve">
+    <value>Official Microsoft ISO downloads</value>
+  </data>
+  <data name="DownloadsSectionSubtitle.Text" xml:space="preserve">
+    <value>Open the official Microsoft download pages before selecting an ISO file for the VM workflow.</value>
+  </data>
+  <data name="Win11IsoLink.Content" xml:space="preserve">
+    <value>Windows 11 ISO and media creation</value>
+  </data>
+  <data name="Win11IsoLink.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Open official Microsoft Windows 11 ISO download page</value>
+  </data>
+  <data name="Win10IsoLink.Content" xml:space="preserve">
+    <value>Windows 10 ISO download</value>
+  </data>
+  <data name="Win10IsoLink.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Open official Microsoft Windows 10 ISO download page</value>
+  </data>
+  <data name="Win11ArmIsoLink.Content" xml:space="preserve">
+    <value>Windows 11 Arm64 ISO download</value>
+  </data>
+  <data name="Win11ArmIsoLink.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Open official Microsoft Windows 11 Arm64 ISO download page</value>
+  </data>
+  <data name="DownloadsTipTitle.Text" xml:space="preserve">
+    <value>Download guidance</value>
+  </data>
+  <data name="DownloadsTipBody.Text" xml:space="preserve">
+    <value>Microsoft exposes the current ISO selection flow in the browser. After downloading, return to the Configuration tab and select the ISO path with Browse.</value>
+  </data>
+  <data name="VmPlanNotGenerated" xml:space="preserve">
+    <value>Build the VM execution plan to see a generated preview.</value>
+  </data>
+  <data name="VmPlanIssueSeverityError" xml:space="preserve">
+    <value>Error:</value>
+  </data>
+  <data name="VmPlanIssueSeverityWarning" xml:space="preserve">
+    <value>Warning:</value>
+  </data>
+  <data name="VmPlanIssueSeverityInformation" xml:space="preserve">
+    <value>Info:</value>
+  </data>
+  <data name="VmPlanSummaryReadyFormat" xml:space="preserve">
+    <value>Plan generated. Blocking validation passed. {0} warning(s) remain for review.</value>
+  </data>
+  <data name="VmPlanSummaryBlockedFormat" xml:space="preserve">
+    <value>Plan generated with {0} blocking issue(s) and {1} warning(s).</value>
+  </data>
+  <data name="VmPlanIssueVmNameRequired" xml:space="preserve">
+    <value>Enter a VM name.</value>
+  </data>
+  <data name="VmPlanIssueVmNameInvalid" xml:space="preserve">
+    <value>VM name must be alphanumeric and no longer than 15 characters.</value>
+  </data>
+  <data name="VmPlanIssueUsernameRequired" xml:space="preserve">
+    <value>Enter a guest username.</value>
+  </data>
+  <data name="VmPlanIssueUsernameInvalid" xml:space="preserve">
+    <value>Guest username must be alphanumeric.</value>
+  </data>
+  <data name="VmPlanIssueUsernameMatchesVm" xml:space="preserve">
+    <value>Guest username cannot match the VM name.</value>
+  </data>
+  <data name="VmPlanIssuePasswordRequired" xml:space="preserve">
+    <value>Enter a guest password.</value>
+  </data>
+  <data name="VmPlanIssueIsoRequired" xml:space="preserve">
+    <value>Enter the path to a Windows ISO.</value>
+  </data>
+  <data name="VmPlanIssueIsoMissing" xml:space="preserve">
+    <value>The Windows ISO path does not exist.</value>
+  </data>
+  <data name="VmPlanIssueVhdPathRequired" xml:space="preserve">
+    <value>Enter the target VHD folder path.</value>
+  </data>
+  <data name="VmPlanIssueVhdPathMissing" xml:space="preserve">
+    <value>The target VHD folder path does not exist.</value>
+  </data>
+  <data name="VmPlanIssueCpuRequired" xml:space="preserve">
+    <value>Enter the number of CPU cores.</value>
+  </data>
+  <data name="VmPlanIssueCpuInvalid" xml:space="preserve">
+    <value>CPU cores must be a whole number between 1 and 64.</value>
+  </data>
+  <data name="VmPlanIssueMemoryRequired" xml:space="preserve">
+    <value>Enter the memory amount in GB.</value>
+  </data>
+  <data name="VmPlanIssueMemoryInvalid" xml:space="preserve">
+    <value>Memory must be a whole number between 1 and 512 GB.</value>
+  </data>
+  <data name="VmPlanIssueDiskRequired" xml:space="preserve">
+    <value>Enter the disk size in GB.</value>
+  </data>
+  <data name="VmPlanIssueDiskInvalid" xml:space="preserve">
+    <value>Disk size must be a whole number between 20 and 4096 GB.</value>
+  </data>
+  <data name="VmPlanIssueGpuShareRequired" xml:space="preserve">
+    <value>Enter the GPU allocation percentage.</value>
+  </data>
+  <data name="VmPlanIssueGpuShareInvalid" xml:space="preserve">
+    <value>GPU allocation must be a whole number between 1 and 100.</value>
+  </data>
+  <data name="VmPlanIssueSwitchRequired" xml:space="preserve">
+    <value>Select a Hyper-V network switch.</value>
+  </data>
+  <data name="VmPlanIssueGpuRequired" xml:space="preserve">
+    <value>Select a GPU option.</value>
+  </data>
+  <data name="VmPlanIssueWindows10GpuSelection" xml:space="preserve">
+    <value>Windows 10 hosts must keep GPU selection set to AUTO.</value>
+  </data>
+  <data name="VmPlanIssueNoInspection" xml:space="preserve">
+    <value>No host inspection snapshot is available yet. Refresh checks before trusting the plan.</value>
+  </data>
+  <data name="VmPlanIssueHostBlockingFormat" xml:space="preserve">
+    <value>The current host snapshot still has {0} blocking readiness check(s).</value>
+  </data>
+  <data name="VmPlanIssueHostWarningsFormat" xml:space="preserve">
+    <value>The current host snapshot still has {0} warning check(s).</value>
+  </data>
+  <data name="DriverUpdateCommandFormat" xml:space="preserve">
+    <value>Update-VMGpuPartitionDriver.ps1 -VMName '{0}' -GPUName '{1}'</value>
+  </data>
+  <data name="ExecuteVmPlanButton.Content" xml:space="preserve">
+    <value>Run VM provisioning</value>
+  </data>
+  <data name="UpdateExistingVmButton.Content" xml:space="preserve">
+    <value>Update existing VM drivers</value>
+  </data>
+  <data name="UpdateExistingVmButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Update existing VM drivers</value>
+  </data>
+  <data name="ExecuteVmPlanButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Run VM provisioning</value>
+  </data>
+  <data name="VmExecutionBlocked" xml:space="preserve">
+    <value>Execution is blocked until all validation errors are resolved.</value>
+  </data>
+  <data name="VmExecutionLogLabel.Text" xml:space="preserve">
+    <value>Execution log</value>
+  </data>
+  <data name="VmExecutionNotRun" xml:space="preserve">
+    <value>Run VM provisioning to capture a script execution log.</value>
+  </data>
+  <data name="VmExecutionReady" xml:space="preserve">
+    <value>The plan is ready to run.</value>
+  </data>
+  <data name="VmExecutionRunning" xml:space="preserve">
+    <value>VM provisioning is running. This can take several minutes.</value>
+  </data>
+  <data name="VmExecutionUpdatingExisting" xml:space="preserve">
+    <value>Existing VM driver refresh is running. The VM may be stopped temporarily while its VHDX is mounted.</value>
+  </data>
+  <data name="VmExecutionSummaryUpdateSuccess" xml:space="preserve">
+    <value>Existing VM guest GPU driver refresh finished.</value>
+  </data>
+  <data name="PostProvisioningGuideTitle.Text" xml:space="preserve">
+    <value>After the VM is created</value>
+  </data>
+  <data name="PostProvisioningGuideText" xml:space="preserve">
+    <value>Wait for the unattended Windows setup to reach the desktop, use VMConnect only for first access, then install a GPU-accelerated remote desktop or game streaming tool plus a virtual display driver inside the guest. Avoid RDP and Hyper-V Enhanced Session for normal GPU-PV use. After host GPU driver updates, use Update existing VM drivers.</value>
+  </data>
+  <data name="VmExecutionStageCompleted" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="VmExecutionStageCreateCompleted" xml:space="preserve">
+    <value>The VM creation script completed.</value>
+  </data>
+  <data name="VmExecutionStageCreatePending" xml:space="preserve">
+    <value>The VM creation script is waiting to start.</value>
+  </data>
+  <data name="VmExecutionStageCreateRunning" xml:space="preserve">
+    <value>The VM creation script is running.</value>
+  </data>
+  <data name="VmExecutionStageCreateTitle" xml:space="preserve">
+    <value>Create VM</value>
+  </data>
+  <data name="VmExecutionStageDriverCompleted" xml:space="preserve">
+    <value>The guest GPU driver refresh completed.</value>
+  </data>
+  <data name="VmExecutionStageDriverPending" xml:space="preserve">
+    <value>The guest GPU driver refresh is waiting to start.</value>
+  </data>
+  <data name="VmExecutionStageDriverRunning" xml:space="preserve">
+    <value>The guest GPU driver refresh is running.</value>
+  </data>
+  <data name="VmExecutionStageDriverSkipped" xml:space="preserve">
+    <value>The guest GPU driver refresh was skipped because the VM creation step failed.</value>
+  </data>
+  <data name="VmExecutionStageDriverTitle" xml:space="preserve">
+    <value>Refresh guest drivers</value>
+  </data>
+  <data name="VmExecutionStageFailed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="VmExecutionStagePending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="VmExecutionStagePrepareCompletedFormat" xml:space="preserve">
+    <value>Automation assets were prepared in {0}.</value>
+  </data>
+  <data name="VmExecutionStagePreparePending" xml:space="preserve">
+    <value>The temporary automation workspace is waiting to be prepared.</value>
+  </data>
+  <data name="VmExecutionStagePrepareRunning" xml:space="preserve">
+    <value>The temporary automation workspace is being prepared.</value>
+  </data>
+  <data name="VmExecutionStagePrepareTitle" xml:space="preserve">
+    <value>Prepare workspace</value>
+  </data>
+  <data name="VmExecutionStageRunning" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="VmExecutionStageSkipped" xml:space="preserve">
+    <value>Skipped</value>
+  </data>
+  <data name="VmExecutionStagesLabel.Text" xml:space="preserve">
+    <value>Execution stages</value>
+  </data>
+  <data name="VmExecutionAssetsMissingFormat" xml:space="preserve">
+    <value>Expected automation assets folder not found: {0}</value>
+  </data>
+  <data name="VmExecutionSummaryAssetsMissing" xml:space="preserve">
+    <value>Automation assets are missing from the app output.</value>
+  </data>
+  <data name="VmExecutionSummaryCreateFailed" xml:space="preserve">
+    <value>VM provisioning stopped during the VM creation step.</value>
+  </data>
+  <data name="VmExecutionSummaryDriverFailed" xml:space="preserve">
+    <value>VM creation finished, but the guest GPU driver refresh failed.</value>
+  </data>
+  <data name="VmExecutionSummarySuccess" xml:space="preserve">
+    <value>VM provisioning and guest GPU driver refresh finished.</value>
+  </data>
+</root>
